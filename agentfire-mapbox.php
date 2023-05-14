@@ -16,7 +16,6 @@
     define( 'AGFM_TEXTDOMAIN', 'agfm_text_namespace' );
 
     // include necessary files
-    require_once __DIR__ . '/src/class-agfm-settings.php';
     require_once __DIR__ . '/src/class-agfm-helpers.php';
     require_once __DIR__ . '/src/class-agfm-wp-rest.php';
 
@@ -328,9 +327,6 @@
         // run WP REST custom endpoint
         $agfm_wp_rest = new AGFM_WP_REST();
     }
-
-    // create the class instance
-    $agfm_settings = new AGFM_Settings();
 
     // run initialization functions
     add_action( 'init', 'AGFM\agfm_init_general', 0 );
