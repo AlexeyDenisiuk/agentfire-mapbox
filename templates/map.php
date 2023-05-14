@@ -1,3 +1,9 @@
+<?php
+
+	use AGFM\Helpers\AGFM_Helpers;
+
+?>
+
 <div id="agfm_main_map_app_cont">
 	<div class="row mt-3">
 	  	<div id="filters_cont" class="col-md-3">

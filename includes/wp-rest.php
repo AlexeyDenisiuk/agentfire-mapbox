@@ -2,6 +2,8 @@
 
     namespace AGFM\Wp_Rest;
 
+    use AGFM\Helpers\AGFM_Helpers;
+
     class AGFM_Wp_Rest
     {
         public function __construct()
@@ -52,10 +54,10 @@
                         'list' => [
                             'required' => true,
                             'validate_callback' => function( $param, $request, $key ) {
-                                return \AGFM_Helpers::is_json( $param );
+                                return AGFM_Helpers::is_json( $param );
                             }
                         ],
-                ]
+                    ]
             ]);
         }
 

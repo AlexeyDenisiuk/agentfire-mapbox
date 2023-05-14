@@ -1,5 +1,7 @@
 <?php
 
+    namespace AGFM\Helpers;
+
     class AGFM_Helpers
     {
         /**
