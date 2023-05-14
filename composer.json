@@ -12,9 +12,10 @@
             "email": "alexey.denisiuk@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.0.0"
     },
-    "license": "proprietary"
+    "license": "proprietary",
+    "version": "1.0.1"
 }
