@@ -329,4 +329,4 @@
 
     // run initialization functions
     add_action( 'init', 'AGFM\agfm_init_general', 0 );
-?>
+?> 
