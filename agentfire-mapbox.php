@@ -323,6 +323,9 @@
         $agfm_wp_rest = new AGFM_WP_REST();
     }
 
+    // create the class instance
+    $agfm_settings = new AGFM_Settings();
+
     // run initialization functions
     add_action( 'init', 'AGFM\agfm_init_general', 0 );
 ?>
