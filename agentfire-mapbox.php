@@ -7,6 +7,8 @@
 	* Author: Alexey Denisiuk
 	**/
 
+    namespace AGFM;
+
     // include necessary files
     require_once __DIR__ . '/settings.php';
     require_once __DIR__ . '/includes/helpers.php';
@@ -312,7 +314,7 @@
     function agfm_init_general() 
     {
         // create schortcode for the map's plugin
-        add_shortcode( 'agentfire_test', 'agfm_insert_agentfire_test' );
+        add_shortcode( 'agentfire_test', 'AGFM\agfm_insert_agentfire_test' );
 
         // main initialization
         agfm_init();
@@ -322,5 +324,5 @@
     }
 
     // run initialization functions
-    add_action( 'init', 'agfm_init_general', 0 );
+    add_action( 'init', 'AGFM\agfm_init_general', 0 );
 ?>
