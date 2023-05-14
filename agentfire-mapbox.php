@@ -9,10 +9,16 @@
 
     namespace AGFM;
 
+    // define constants
+    define( 'AGFM_URL_PLUGINS_FOLDER', '/wp-content/plugins/' );
+    define( 'AGFM_URL_PLUGIN_FOLDER', '/wp-content/plugins/agentfire-mapbox/' );
+    define( 'AGFM_ABS_PLUGIN_FOLDER', __DIR__ . '/' );
+    define( 'AGFM_TEXTDOMAIN', 'agfm_text_namespace' );
+
     // include necessary files
-    require_once __DIR__ . '/class-agfm-settings.php';
-    require_once __DIR__ . '/includes/class-agfm-helpers.php';
-    require_once __DIR__ . '/includes/class-agfm-wp-rest.php';
+    require_once __DIR__ . '/src/class-agfm-settings.php';
+    require_once __DIR__ . '/src/class-agfm-helpers.php';
+    require_once __DIR__ . '/src/class-agfm-wp-rest.php';
 
     use AGFM\WP_REST\AGFM_WP_REST;
     use AGFM\Helpers\AGFM_Helpers;
