@@ -12,6 +12,8 @@
     require_once __DIR__ . '/includes/helpers.php';
     require_once __DIR__ . '/includes/wp-rest.php';
 
+    use AGFM\Wp_Rest\AGFM_Wp_Rest;
+
     /**
      * Initializations for the implementation of the shortcode '[agentfire_test]'
      */

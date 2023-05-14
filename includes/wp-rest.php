@@ -1,5 +1,8 @@
 <?php
 
+    // create namespace
+    namespace AGFM\Wp_Rest;
+
     class AGFM_Wp_Rest
     {
         public function __construct()
@@ -50,7 +53,7 @@
                         'list' => [
                             'required' => true,
                             'validate_callback' => function( $param, $request, $key ) {
-                                return AGFM_Helpers::is_json( $param );
+                                return \AGFM_Helpers::is_json( $param );
                             }
                         ],
                 ]
@@ -83,7 +86,7 @@
                 $args['s'] = $name; 
             }
             // do we need filter markers by their tags/terms?
-            if (!empty($tags) && count($tags)) {
+            if ( !empty( $tags ) && count( $tags ) ) {
                 $args['tax_query'] = [
                         [
                             'taxonomy' => 'agfm_map_marker_tag',
@@ -91,11 +94,10 @@
                             'terms' => $tags,
                         ]
                     ];
-                    
             };
 
             // get markers by the filters from the request
-            $markers = new WP_Query( $args ); 
+            $markers = new \WP_Query( $args ); 
             $markers = $markers->posts;
 
             // create response
@@ -130,7 +132,7 @@
                 'items'  => $markerItems
             ];
 
-            return new WP_REST_Response( $response );
+            return new \WP_REST_Response( $response );
         }
 
         /**
@@ -149,7 +151,7 @@
                     'message' => 'You must be logged in to add map markers.'
                 ];
 
-                return new WP_REST_Response( $response );
+                return new \WP_REST_Response( $response );
             }
 
             foreach ( $markers_data as $key => $marker_data )
@@ -180,7 +182,7 @@
                 'message' => 'Markers added'
             ];
 
-            return new WP_REST_Response( $response );
+            return new \WP_REST_Response( $response );
         }
     }
 

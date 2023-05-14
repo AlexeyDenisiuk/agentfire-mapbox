@@ -14,4 +14,3 @@
 
     // create the class instance
     $agfm_settings = new AGFM_Settings();
-
