@@ -1,1 +1,1 @@
-# agentfire_mapbox
+# agentfire-mapbox
