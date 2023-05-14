@@ -1,0 +1,7 @@
+{
+  "name": "agentfire-mapbox",
+  "dependencies": {
+    "select2": "4.0.13",
+    "font-awesome": "5.7.2"
+  }
+}

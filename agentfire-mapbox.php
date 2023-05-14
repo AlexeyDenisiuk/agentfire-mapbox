@@ -27,18 +27,19 @@
 	function init_agentfire_map() 
 	{
 		// include js files
-		wp_enqueue_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js', [], '3.6.4', true );
-		wp_enqueue_script( 'mapbox-gl.js', 'https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js', [], '2.14.1', true );
-		wp_enqueue_script( 'js.cookie.min.js', 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js', [], '3.0.5', true );
-		wp_enqueue_script( 'popper.min.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js', [], '1.14.7', true );
-		wp_enqueue_script( 'bootstrap.min.js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js', [], '4.3.1', true );
-		wp_enqueue_script( 'select2.min.js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', [], '4.1.0', true );
+		wp_enqueue_script( 'mapbox-gl.js', AGFM_URL_PLUGIN_FOLDER . 'node_modules/mapbox-gl/dist/mapbox-gl.js', [ 'jquery' ], '2.14.1', true );
+        wp_enqueue_script( 'select2.min.js', AGFM_URL_PLUGIN_FOLDER . 'bower_components/select2/dist/js/select2.min.js', [ 'jquery' ], '4.1.0', true );
+
+        wp_enqueue_script( 'popper.min.js', AGFM_URL_PLUGIN_FOLDER . 'node_modules/popper.js/dist/umd/popper.min.js', [ 'jquery' ], '1.14.7', true );
+        wp_enqueue_script( 'bootstrap.min.js', AGFM_URL_PLUGIN_FOLDER . 'node_modules/bootstrap/dist/js/bootstrap.min.js', [ 'jquery' ], '4.3.1', true );
+
+		wp_enqueue_script( 'js.cookie.min.js', AGFM_URL_PLUGIN_FOLDER . 'node_modules/js-cookie/dist/js.cookie.min.js', [ 'jquery' ], '3.0.5', true );
 
 		// include css
-		wp_enqueue_style( 'mapbox-gl.css', 'https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css', false, '2.14.1', 'all' );
-		wp_enqueue_style( 'fontawesome-css', 'https://use.fontawesome.com/releases/v5.7.2/css/all.css', false, '5.7.2', 'all' );
-		wp_enqueue_style( 'select2.min.css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', false, '4.1.0', 'all' );
-		wp_enqueue_style( 'bootstrap.min.css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css', false, '4.3.1', 'all' );
+		wp_enqueue_style( 'mapbox-gl.css', AGFM_URL_PLUGIN_FOLDER . 'node_modules/mapbox-gl/src/css/mapbox-gl.css', false, '2.14.1', 'all' );
+		wp_enqueue_style( 'fontawesome-css', AGFM_URL_PLUGIN_FOLDER . 'bower_components/font-awesome/css/all.css', false, '5.7.2', 'all' );
+		wp_enqueue_style( 'select2.min.css', AGFM_URL_PLUGIN_FOLDER . 'bower_components/select2/dist/css/select2.min.css', false, '4.1.0', 'all' );
+		wp_enqueue_style( 'bootstrap.min.css', AGFM_URL_PLUGIN_FOLDER . 'node_modules/bootstrap/dist/css/bootstrap.min.css', false, '4.3.1', 'all' );
 
 		// include plugin's files
 		wp_enqueue_style( 'agentfire-mapbox.css', AGFM_URL_PLUGIN_FOLDER . 'css/agentfire-mapbox.css', false, '1.0.1', 'all' );
