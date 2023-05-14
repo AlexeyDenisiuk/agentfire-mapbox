@@ -1,10 +1,10 @@
 <?php
 
-    namespace AGFM\Wp_Rest;
+    namespace AGFM\WP_REST;
 
     use AGFM\Helpers\AGFM_Helpers;
 
-    class AGFM_Wp_Rest
+    class AGFM_WP_REST
     {
         public function __construct()
         {

@@ -10,11 +10,11 @@
     namespace AGFM;
 
     // include necessary files
-    require_once __DIR__ . '/settings.php';
-    require_once __DIR__ . '/includes/helpers.php';
-    require_once __DIR__ . '/includes/wp-rest.php';
+    require_once __DIR__ . '/class-agfm-settings.php';
+    require_once __DIR__ . '/includes/class-agfm-helpers.php';
+    require_once __DIR__ . '/includes/class-agfm-wp-rest.php';
 
-    use AGFM\Wp_Rest\AGFM_Wp_Rest;
+    use AGFM\WP_REST\AGFM_WP_REST;
     use AGFM\Helpers\AGFM_Helpers;
 
     /**
@@ -320,7 +320,7 @@
         agfm_init();
 
         // run WP REST custom endpoint
-        $agfm_wp_rest = new AGFM_Wp_Rest();
+        $agfm_wp_rest = new AGFM_WP_REST();
     }
 
     // run initialization functions
