@@ -1,10 +1,10 @@
 <?php
 
-    namespace AGFM\WP_REST;
+    namespace AGFM;
 
-    use AGFM\Helpers\AGFM_Helpers;
+    use AGFM\Helpers;
 
-    class AGFM_WP_REST
+    class WP_REST
     {
         public function __construct()
         {
@@ -54,7 +54,7 @@
                         'list' => [
                             'required' => true,
                             'validate_callback' => function( $param, $request, $key ) {
-                                return AGFM_Helpers::is_json( $param );
+                                return Helpers::is_json( $param );
                             }
                         ],
                     ]

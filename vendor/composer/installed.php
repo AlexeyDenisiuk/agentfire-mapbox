@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => 'a/a',
+        'name' => 'alexeydenisiuk/agentfire-mapbox',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b8cc4e2ff3c656eabfaad2fc5a7093b37087f96c',
+        'reference' => '47e780ed1361d3f8bd2733cd48387f5f9447c55f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'a/a' => array(
+        'alexeydenisiuk/agentfire-mapbox' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b8cc4e2ff3c656eabfaad2fc5a7093b37087f96c',
+            'reference' => '47e780ed1361d3f8bd2733cd48387f5f9447c55f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -1,0 +1,17 @@
+{
+    "name": "alexeydenisiuk/agentfire-mapbox",
+    "description": "Agentfire Mapbox plugin for WordPress",
+    "autoload": {
+        "psr-4": {
+            "AGFM\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexey Denisiuk",
+            "email": "alexey.denisiuk@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

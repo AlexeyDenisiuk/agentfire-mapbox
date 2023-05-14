@@ -16,7 +16,7 @@ class ComposerStaticInit9113354602a576787cbcced2fb6845fa
     public static $prefixDirsPsr4 = array (
         'AGFM\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/includes',
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

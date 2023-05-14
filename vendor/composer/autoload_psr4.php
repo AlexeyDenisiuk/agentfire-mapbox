@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AGFM\\' => array($baseDir . '/includes'),
+    'AGFM\\' => array($baseDir . '/src'),
 );

@@ -15,12 +15,11 @@
     define( 'AGFM_ABS_PLUGIN_FOLDER', __DIR__ . '/' );
     define( 'AGFM_TEXTDOMAIN', 'agfm_text_namespace' );
 
-    // include necessary files
-    require_once __DIR__ . '/src/class-agfm-helpers.php';
-    require_once __DIR__ . '/src/class-agfm-wp-rest.php';
+    // include autoload
+    require_once __DIR__ . '/vendor/autoload.php';
 
-    use AGFM\WP_REST\AGFM_WP_REST;
-    use AGFM\Helpers\AGFM_Helpers;
+    use AGFM\WP_REST;
+    use AGFM\Helpers;
 
     /**
      * Initializations for the implementation of the shortcode '[agentfire_test]'
@@ -109,22 +108,22 @@
     {
         // register custom post type 'agfm_map_marker'
         $labels = [
-            'name'                => AGFM_Helpers::__( 'Map Markers' ),
-            'singular_name'       => AGFM_Helpers::__( 'Map Marker' ),
-            'menu_name'           => AGFM_Helpers::__( 'Map Markers' ),
-            'all_items'           => AGFM_Helpers::__( 'All Map Markers' ),
-            'view_item'           => AGFM_Helpers::__( 'View Map Marker' ),
-            'add_new_item'        => AGFM_Helpers::__( 'Add New Map Marker' ),
-            'add_new'             => AGFM_Helpers::__( 'Add New' ),
-            'edit_item'           => AGFM_Helpers::__( 'Edit Map Marker' ),
-            'update_item'         => AGFM_Helpers::__( 'Update Map Marker' ),
-            'search_items'        => AGFM_Helpers::__( 'Search Map Marker' ),
-            'not_found'           => AGFM_Helpers::__( 'Not Found' ),
-            'not_found_in_trash'  => AGFM_Helpers::__( 'Not found in Trash' ),
+            'name'                => Helpers::__( 'Map Markers' ),
+            'singular_name'       => Helpers::__( 'Map Marker' ),
+            'menu_name'           => Helpers::__( 'Map Markers' ),
+            'all_items'           => Helpers::__( 'All Map Markers' ),
+            'view_item'           => Helpers::__( 'View Map Marker' ),
+            'add_new_item'        => Helpers::__( 'Add New Map Marker' ),
+            'add_new'             => Helpers::__( 'Add New' ),
+            'edit_item'           => Helpers::__( 'Edit Map Marker' ),
+            'update_item'         => Helpers::__( 'Update Map Marker' ),
+            'search_items'        => Helpers::__( 'Search Map Marker' ),
+            'not_found'           => Helpers::__( 'Not Found' ),
+            'not_found_in_trash'  => Helpers::__( 'Not found in Trash' ),
         ];
 
         $args = [
-            'description'         => AGFM_Helpers::__( 'Map markers tags' ),
+            'description'         => Helpers::__( 'Map markers tags' ),
             'labels'              => $labels,
             'supports'            => [ 'title', 'custom-fields', 'author' ],
             'taxonomies'          => [ 'agfm_map_marker_tag' ],
@@ -140,15 +139,15 @@
 
         // register custom taxonomy 'agfm_map_marker_tag'
         $labels = [
-            'name'          => AGFM_Helpers::__( 'Map Marker Tags' ),
-            'singular_name' => AGFM_Helpers::__( 'Map Marker Tag' ),
-            'search_items'  => AGFM_Helpers::__( 'Search Map Marker Tags' ),
-            'all_items'     => AGFM_Helpers::__( 'All ' ),
-            'edit_item'     => AGFM_Helpers::__( 'Edit Map Marker Tag' ), 
-            'update_item'   => AGFM_Helpers::__( 'Update Map Marker Tag' ),
-            'add_new_item'  => AGFM_Helpers::__( 'Add New Map Marker Tag' ),
-            'new_item_name' => AGFM_Helpers::__( 'New Subject Map Marker Tag' ),
-            'menu_name'     => AGFM_Helpers::__( 'Map Marker Tags' ),
+            'name'          => Helpers::__( 'Map Marker Tags' ),
+            'singular_name' => Helpers::__( 'Map Marker Tag' ),
+            'search_items'  => Helpers::__( 'Search Map Marker Tags' ),
+            'all_items'     => Helpers::__( 'All ' ),
+            'edit_item'     => Helpers::__( 'Edit Map Marker Tag' ), 
+            'update_item'   => Helpers::__( 'Update Map Marker Tag' ),
+            'add_new_item'  => Helpers::__( 'Add New Map Marker Tag' ),
+            'new_item_name' => Helpers::__( 'New Subject Map Marker Tag' ),
+            'menu_name'     => Helpers::__( 'Map Marker Tags' ),
         ];    
 
         register_taxonomy( 'agfm_map_marker_tag', ['agfm_map_marker'], [
@@ -166,8 +165,8 @@
         {
             // register options page
             $option_page = acf_add_options_page([
-                'page_title'    => AGFM_Helpers::__( 'Agentfire Mapbox Settings' ),
-                'menu_title'    => AGFM_Helpers::__( 'Agentfire Mapbox' ),
+                'page_title'    => Helpers::__( 'Agentfire Mapbox Settings' ),
+                'menu_title'    => Helpers::__( 'Agentfire Mapbox' ),
                 'menu_slug'     => 'agentfire-mapbox-settings',
                 'capability'    => 'edit_posts',
                 'redirect'      => false
@@ -180,11 +179,11 @@
             // add fields in the options page
             acf_add_local_field_group([
                 'key'    => 'agfm_group_field_general',
-                'title'  => AGFM_Helpers::__( 'General' ),
+                'title'  => Helpers::__( 'General' ),
                 'fields' => [
                     [
                         'key'               => 'agfm_mapbox_token',
-                        'label'             => AGFM_Helpers::__( 'Token' ),
+                        'label'             => Helpers::__( 'Token' ),
                         'name'              => 'agfm_mapbox_token',
                         'type'              => 'text',
                         'prefix'            => '',
@@ -206,7 +205,7 @@
                     ],
                     [
                         'key'               => 'agfm_mapbox_style_url',
-                        'label'             => AGFM_Helpers::__( 'Style URL' ),
+                        'label'             => Helpers::__( 'Style URL' ),
                         'name'              => 'agfm_mapbox_style_url',
                         'type'              => 'text',
                         'prefix'            => '',
@@ -247,11 +246,11 @@
             // add fields in the map markers edit page
             acf_add_local_field_group([
                 'key' => 'agfm_group_field_map_marker',
-                'title' => AGFM_Helpers::__( 'Map marker group field' ),
+                'title' => Helpers::__( 'Map marker group field' ),
                 'fields' => [
                     [
                         'key'               => 'agfm_map_marker_longtitude',
-                        'label'             => AGFM_Helpers::__( 'Longtitude' ),
+                        'label'             => Helpers::__( 'Longtitude' ),
                         'name'              => 'agfm_map_marker_longtitude',
                         'type'              => 'text',
                         'prefix'            => '',
@@ -273,7 +272,7 @@
                     ],
                     [
                         'key'               => 'agfm_map_marker_latitude',
-                        'label'             => AGFM_Helpers::__( 'Latitude' ),
+                        'label'             => Helpers::__( 'Latitude' ),
                         'name'              => 'agfm_map_marker_latitude',
                         'type'              => 'text',
                         'prefix'            => '',
@@ -325,7 +324,7 @@
         agfm_init();
 
         // run WP REST custom endpoint
-        $agfm_wp_rest = new AGFM_WP_REST();
+        $agfm_wp_rest = new WP_REST();
     }
 
     // run initialization functions

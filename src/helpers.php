@@ -1,8 +1,8 @@
 <?php
 
-    namespace AGFM\Helpers;
+    namespace AGFM;
 
-    class AGFM_Helpers
+    class Helpers
     {
         /**
          * Check whether the variable is JSON
