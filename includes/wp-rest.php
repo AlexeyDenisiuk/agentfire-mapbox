@@ -1,6 +1,5 @@
 <?php
 
-    // create namespace
     namespace AGFM\Wp_Rest;
 
     class AGFM_Wp_Rest
