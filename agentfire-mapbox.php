@@ -29,10 +29,10 @@
 		// include js files
 		wp_enqueue_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js', [], '3.6.4', true);
 		wp_enqueue_script( 'mapbox-gl.js', 'https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js', [], '2.14.1', true);
-		wp_enqueue_script( 'js.cookie.min.js', 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js', [], '3.0.5', true);
-		wp_enqueue_script( 'popper.min.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js', [], '1.14.7', true);
-		wp_enqueue_script( 'bootstrap.min.js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js', [], '4.3.1', true);
-		wp_enqueue_script( 'select2.min.js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', [], '4.1.0', true);
+		wp_enqueue_script( 'js.cookie.min.js', 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js', [], '3.0.5', true );
+		wp_enqueue_script( 'popper.min.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js', [], '1.14.7', true );
+		wp_enqueue_script( 'bootstrap.min.js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js', [], '4.3.1', true );
+		wp_enqueue_script( 'select2.min.js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', [], '4.1.0', true );
 
 		// include css
 		wp_enqueue_style( 'mapbox-gl.css', 'https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css', false, '2.14.1', 'all' );
