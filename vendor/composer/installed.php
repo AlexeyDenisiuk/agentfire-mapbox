@@ -3,7 +3,7 @@
         'name' => 'alexeydenisiuk/agentfire-mapbox',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1b2fe8c0be0a793cd9413630a14bc7ffddffa570',
+        'reference' => 'fa54ac2e457f6549f67c58c3c5c26ae4a4eda5a8',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'alexeydenisiuk/agentfire-mapbox' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1b2fe8c0be0a793cd9413630a14bc7ffddffa570',
+            'reference' => 'fa54ac2e457f6549f67c58c3c5c26ae4a4eda5a8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

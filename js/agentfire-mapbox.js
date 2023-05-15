@@ -120,6 +120,59 @@
 	})
 
 	/**
+	 * Get template
+	 * 
+	 * @data array data           Array data for the template render
+	 * @return string|boolean     Return string if success, and 'false' on fail
+	 */
+	function getTemplate( data )
+	{
+		// check which template user wants to get
+		if ( data['tmpl_name'] == 'marker-popup' )
+		{
+			// form tags
+			let tags = '';
+			jQuery.each( data['vars']['marker_tags'], function( index, tag ) {
+				tags += '<span class="popup-tag" data-map-marker-tag-id="'+tag.id+'">'+tag.name+'</span>';
+			})
+
+			if ( isEmpty( tags ) ) {
+				tags = mapMarkerTagsAbsentStr;
+			}
+
+			let tmpl = 
+				'<table>' +
+				    '<tr>' +
+				        '<td>' +
+				            '<span class="label">Name: </span>' +
+	            		'</td>' + 
+	              		'<td>' + data['vars']['marker_name'] + '</td>' +
+	    			'</tr>' +
+				    '<tr>' +
+				        '<td>' +
+				            '<span class="label">Tags: </span>' +
+				            '</td>' + 
+			              '<td>' + tags + '</td>' +
+		            '</tr>' +
+				    '<tr>' +
+				        '<td>' +
+				            '<span class="label">Added: </span>' +
+			            '</td>' + 
+		              	'<td>' + data['vars']['marker_date'] + '</td>' +
+		            '</tr>' +
+		        '</table>';
+
+	        // return rendered template
+	        return tmpl;
+
+		} else {
+
+			// return false, signal that we didn't find such template that user wants to get
+			return false;
+		}
+	}
+
+	/**
 	 * Check whether the variable is empty
 	 * 
 	 * @param mixed val 
@@ -195,40 +248,20 @@
 						return;
 					}
 
-					// form tags
-					let tags = '';
-					jQuery.each( marker.tags, function( index, tag ) {
-						tags += '<span class="popup-tag" data-map-marker-tag-id="'+tag.id+'">'+tag.name+'</span>';
-					})
+					// get template for marker popup
+		        	let data = [];
+					data['tmpl_name'] = 'marker-popup';
 
-					if ( isEmpty( tags ) ) {
-						tags = mapMarkerTagsAbsentStr;
-					}
+					data['vars'] = [];
+					data['vars']['marker_tags'] = marker.tags;
+					data['vars']['marker_name'] = marker.name;
+					data['vars']['marker_date'] = marker.date;
+
+					let tmpl = getTemplate( data );
 
 					let markerPopup = new mapboxgl
 						.Popup({ offset: mapMarkerOffset })
-						.setHTML(
-							'<table>' +
-							    '<tr>' +
-							        '<td>' +
-							            '<span class="label">Name: </span>' +
-				            		'</td>' + 
-				              		'<td>' + marker.name + '</td>' +
-		            			'</tr>' +
-							    '<tr>' +
-							        '<td>' +
-							            '<span class="label">Tags: </span>' +
-							            '</td>' + 
-						              '<td>' + tags + '</td>' +
-					            '</tr>' +
-							    '<tr>' +
-							        '<td>' +
-							            '<span class="label">Added: </span>' +
-						            '</td>' + 
-					              	'<td>' + marker.date+ '</td>' +
-					            '</tr>' +
-					        '</table>'
-					);
+						.setHTML( tmpl );
 
 				    new mapboxgl.Marker({})
 						.setLngLat([ marker.longitude, marker.latitude ])
@@ -389,74 +422,65 @@
 		var newMarkerTagIds = [];
 		var newMarkerDateAdded = '';
 
+		// get formatted current date like 'dd.mm.YYYY'
+		var date = new Date();
+		var formattedDate = date.toLocaleString( 
+				undefined,
+				{ 
+				    year: 'numeric', 
+				    month: '2-digit', 
+				    day: '2-digit' 
+				}
+			).replace(/(\d+)\/(\d+)\/(\d+)/, '$2/$1/$3');
+
+		newMarkerDateAdded = formattedDate;
+
+		// get template for marker popup
+    	let data = [];
+		data['tmpl_name'] = 'marker-popup';
+
+		data['vars'] = [];
+
+		var markerTags = [];
 		jQuery( '#popup_window_add_map_marker select option:selected' ).each( function( index, element ) {
-			newMarkerPopupTags += '<span class="popup-tag" data-map-marker-tag-id="' + jQuery( element ).val() + '">';
-			newMarkerPopupTags += jQuery(element).text();
-			newMarkerPopupTags += '</span>';
+
+			markerTags[markerTags.length] = {
+				'id': jQuery( element ).val(),
+				'name': jQuery( element ).text()
+			}
 
 			newMarkerTagIds[newMarkerTagIds.length] = jQuery( element ).val();
 		})
 
-		if ( isEmpty( newMarkerPopupTags ) ) {
-			newMarkerPopupTags = mapMarkerTagsAbsentStr;
-		}
+		data['vars']['marker_tags'] = markerTags;
+		data['vars']['marker_name'] = newMarkerPopupName;
+		data['vars']['marker_date'] = newMarkerDateAdded;
 
-		// get formatted current date like 'dd.mm.YYYY'
-		var date = new Date();
-		var formattedDate = date.toLocaleString(undefined, { 
-		    year: 'numeric', 
-		    month: '2-digit', 
-		    day: '2-digit' 
-		}).replace(/(\d+)\/(\d+)\/(\d+)/, '$2/$1/$3');
-
-		newMarkerDateAdded = formattedDate;
+		let tmpl = getTemplate( data );
 
 		let newMarkerPopup = new mapboxgl
 			.Popup({ offset: mapMarkerOffset })
-			.setHTML(
-				'<table>' +
-				    '<tr>' +
-				        '<td>' +
-				            '<span class="label">Name: </span>' +
-				        '</td>' + 
-			            '<td>' + newMarkerPopupName + '</td>' +
-		            '</tr>' +
-				    '<tr>' +
-				        '<td>' +
-				            '<span class="label">Tags: </span>' +
-			            '</td>' + 
-		                '<td>' + newMarkerPopupTags + '</td>' +
-		            '</tr>' +
-				    '<tr>' +
-				        '<td>' +
-				            '<span class="label">Added: </span>' +
-			            '</td>' + 
-		                '<td>' + newMarkerDateAdded + '</td>' +
-		            '</tr>' +
-		        '</table>'
-			);
+			.setHTML( tmpl );
 
-		    newMarker.setPopup( newMarkerPopup );
+		newMarker.setPopup( newMarkerPopup );
 
-		    newMarkersArr[newMarkersArr.length] = {
-		    	'marker_handler': newMarker,
-		    	'marker': {
-		    		'longitude': newMarker.getLngLat().lng,
-		    		'latitude': newMarker.getLngLat().lat,
-		    		'name': newMarkerPopupName,
-		    		'tags': newMarkerTagIds,
-		    		'date': newMarkerDateAdded,
-		    	}
-		    };
+		// add new marker to the new markers array
+	    newMarkersArr[newMarkersArr.length] = {
+	    	'marker_handler': newMarker,
+	    	'marker': {
+	    		'longitude': newMarker.getLngLat().lng,
+	    		'latitude': newMarker.getLngLat().lat,
+	    		'name': newMarkerPopupName,
+	    		'tags': newMarkerTagIds,
+	    		'date': newMarkerDateAdded,
+	    	}
+	    };
 
+	    // close modal window
 		jQuery( '#popup_window_add_map_marker' ).modal( 'hide' );
 
         // return that the function successfully completed
         return true;
 	}
 
-})(jQuery);
-
-
-
-
+})( jQuery );
