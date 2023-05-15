@@ -1,4 +1,4 @@
-(function( $ ) {
+( function( $ ) {
 
 	// settings
 	var isDebugMode = false;
@@ -20,6 +20,8 @@
 			// check whether we have all we need
 			if ( isEmpty( agfmBackendExtraData.mapboxToken ) ) throw "Mapbox token is empty. Set it in admin panel.";
 			if ( isEmpty( agfmBackendExtraData.mapboxStyleUrl ) ) throw "Mapbox style URL is empty. Set it in admin panel.";
+
+			return true;
 		}
 
 		function agfmInit()
@@ -52,15 +54,17 @@
 			      zoom: 8.7
 			    });
 
+			    // @REFACTOR: this code helps to determine whether click was on the map or was on marker?
+			    //            If on the marker then do not create new marker.
 			    if ( agfmBackendExtraData.isCanAddMapMarkers )
 			    {
-					jQuery('#map').on('click', '.mapboxgl-marker', function(e) {
-						console.log('Clicked on marker');
+
+					jQuery( '#map' ).on( 'click', '.mapboxgl-marker', function( e ) {
 						isClickedOnMarker = true;
 					})
 
 					// Set an event listener
-					map.on( 'click', (e) => {
+					map.on( 'click', ( e ) => {
 						
 						setTimeout(
 							function() {
@@ -110,6 +114,9 @@
 
 		// run initialization
 		agfmInit();
+
+        // return that the function successfully completed
+        return true;
 	})
 
 	/**
@@ -136,7 +143,7 @@
 	/**
 	 * Check whether the map is in the edit mode
 	 * 
-	 * @return boolean
+	 * @return boolean Return 'true' If the map in the edit mode
 	 */
 	function isEditMapMode()
 	{
@@ -183,8 +190,8 @@
 			{
 				jQuery.each( data.items, function( index, marker )
 				{
-					// is a marker has no longtitude or latitude?
-					if ( isEmpty( marker.longtitude ) && isEmpty( marker.latitude ) ) {
+					// is a marker has no longitude or latitude?
+					if ( isEmpty( marker.longitude ) && isEmpty( marker.latitude ) ) {
 						return;
 					}
 
@@ -224,7 +231,7 @@
 					);
 
 				    new mapboxgl.Marker({})
-						.setLngLat([ marker.longtitude, marker.latitude ])
+						.setLngLat([ marker.longitude, marker.latitude ])
 						.setPopup( markerPopup ) // sets a popup on this marker
 						.addTo( map );
 				});
@@ -248,6 +255,9 @@
 		jQuery( '#filters_cont select' ).attr( 'disabled', 'disabled' ).trigger( 'change' );
 		jQuery( '#filters_cont input[type=text]' ).attr( 'disabled', 'disabled' );
 		jQuery( '#filters_cont button' ).attr( 'disabled', 'disabled' );
+
+        // return that the function successfully completed
+        return true;
 	}
 
 	function activateSearchFilters()
@@ -255,6 +265,9 @@
 		jQuery( '#filters_cont select' ).removeAttr( 'disabled' ).trigger( 'change' );
 		jQuery( '#filters_cont input[type=text]' ).removeAttr( 'disabled' );
 		jQuery( '#filters_cont button' ).removeAttr( 'disabled' );
+
+        // return that the function successfully completed
+        return true;
 	}
 
 	function searchMarkers()
@@ -262,20 +275,26 @@
 		// if search filters disabled then do not start new search
 		if ( isSearchFiltersDisabled() ) return false;
 
-		if (!isSearchFiltersDisabled()) {
+		if ( !isSearchFiltersDisabled() ) {
 			disableSearchFilters();
 		}
 
-		let markerName = jQuery('#filters_map_marker_name').val();
-		let markerTags = jQuery('#filters_map_marker_tags').val();
+		let markerName = jQuery( '#filters_map_marker_name' ).val();
+		let markerTags = jQuery( '#filters_map_marker_tags' ).val();
 
 		// load markers
 		loadMarkers({markerName: markerName, markerTags: markerTags});
+
+        // return that the function successfully completed
+        return true;
 	}
 
 	function cancelMarker( newMarker )
 	{
 		newMarker.remove();
+
+        // return that the function successfully completed
+        return true;
 	}
 
 	function toggleEditMapMode( obj )
@@ -313,7 +332,7 @@
 				newMarkersData[newMarkersData.length] = [{
 					// update location because it could be dragged	
 			    	'marker': {
-			    		'longtitude': newMarkersArr[index].marker_handler.getLngLat().lng,
+			    		'longitude': newMarkersArr[index].marker_handler.getLngLat().lng,
 			    		'latitude': newMarkersArr[index].marker_handler.getLngLat().lat,
 						'name': newMarkersArr[index].marker.name,
 						'tags': newMarkersArr[index].marker.tags,
@@ -347,32 +366,35 @@
 				}
 			});
 		}
+
+        // return that the function successfully completed
+        return true;
 	}
 
 	function setupMarker()
 	{
 		var isErrors = false;
-		jQuery('#popup_window_add_map_marker [required]').each(function() {
-			if (jQuery(this).val() == '') {
-				jQuery(this).addClass('is-invalid');
+		jQuery( '#popup_window_add_map_marker [required]' ).each( function() {
+			if (jQuery( this ).val() == '') {
+				jQuery( this ).addClass('is-invalid');
 				isErrors = true;
 			} else {
-				jQuery(this).removeClass('is-invalid');
+				jQuery( this ).removeClass('is-invalid');
 			}
 		})
-		if (isErrors) return false;
+		if ( isErrors ) return false;
 
-		let newMarkerPopupName = jQuery('#new_marker_name').val();
+		let newMarkerPopupName = jQuery( '#new_marker_name' ).val();
 		var newMarkerPopupTags = '';
 		var newMarkerTagIds = [];
 		var newMarkerDateAdded = '';
 
-		jQuery('#popup_window_add_map_marker select option:selected').each( function( index, element ) {
+		jQuery( '#popup_window_add_map_marker select option:selected' ).each( function( index, element ) {
 			newMarkerPopupTags += '<span class="popup-tag" data-map-marker-tag-id="' + jQuery( element ).val() + '">';
 			newMarkerPopupTags += jQuery(element).text();
 			newMarkerPopupTags += '</span>';
 
-			newMarkerTagIds[newMarkerTagIds.length] = jQuery(element).val();
+			newMarkerTagIds[newMarkerTagIds.length] = jQuery( element ).val();
 		})
 
 		if ( isEmpty( newMarkerPopupTags ) ) {
@@ -419,7 +441,7 @@
 		    newMarkersArr[newMarkersArr.length] = {
 		    	'marker_handler': newMarker,
 		    	'marker': {
-		    		'longtitude': newMarker.getLngLat().lng,
+		    		'longitude': newMarker.getLngLat().lng,
 		    		'latitude': newMarker.getLngLat().lat,
 		    		'name': newMarkerPopupName,
 		    		'tags': newMarkerTagIds,
@@ -428,6 +450,9 @@
 		    };
 
 		jQuery( '#popup_window_add_map_marker' ).modal( 'hide' );
+
+        // return that the function successfully completed
+        return true;
 	}
 
 })(jQuery);

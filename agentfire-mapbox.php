@@ -25,6 +25,8 @@
 
     /**
      * Initializations for the implementation of the shortcode '[agentfire_test]'
+     * 
+     * @return boolean Returns 'true' if the function was succefully completed
      */
 	function init_agentfire_map() 
 	{
@@ -51,7 +53,7 @@
 		 
 		// send backend data to frontend
 		// can user add map markers?
-		$is_can_add_map_markers = (get_current_user_id()) ? true : false;
+		$is_can_add_map_markers = ( get_current_user_id() ) ? true : false;
 
 		// NONCE is needed to have ability get current user ID on the server side in WP REST requests
 		$nonce = wp_create_nonce( 'wp_rest' );
@@ -72,10 +74,15 @@
 		 
 		// enqueued script with localized data
 		wp_enqueue_script( 'agentfire-mapbox.js' );
+
+        // return that the function successfully completed
+        return true;
 	}
 
     /**
      * Implementation of the shortcode '[agentfire_test]'
+     * 
+     * @return string Returns generated template of the page
      */
 	function agfm_insert_agentfire_test() 
 	{
@@ -104,6 +111,8 @@
 
     /**
      * Initialization
+     * 
+     * @return boolean Returns 'true' if the function was succefully completed
      */
     function agfm_init()
     {
@@ -250,9 +259,9 @@
                 'title' => Helpers::__( 'Map marker group field' ),
                 'fields' => [
                     [
-                        'key'               => 'agfm_map_marker_longtitude',
-                        'label'             => Helpers::__( 'Longtitude' ),
-                        'name'              => 'agfm_map_marker_longtitude',
+                        'key'               => 'agfm_map_marker_longitude',
+                        'label'             => Helpers::__( 'Longitude' ),
+                        'name'              => 'agfm_map_marker_longitude',
                         'type'              => 'text',
                         'prefix'            => '',
                         'instructions'      => '',
@@ -311,10 +320,15 @@
                 'hide_on_screen'        => '',
             ]);
         }
+
+        // return that the function successfully completed
+        return true;
     }
 
     /**
      * General initialization
+     * 
+     * @return boolean Returns 'true' if the function was succefully completed
      */
     function agfm_init_general() 
     {
@@ -326,6 +340,9 @@
 
         // run WP REST custom endpoint
         $agfm_wp_rest = new WP_REST();
+
+        // return that the function successfully completed
+        return true;
     }
 
     // run initialization functions

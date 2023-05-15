@@ -4,8 +4,14 @@
 
     use AGFM\Helpers;
 
+    /**
+     * Implementation of the custom WP_REST
+     */
     class WP_REST
     {
+        /**
+         * Set up of the constructor 
+         */
         public function __construct()
         {
             add_action( 'rest_api_init', [ $this, 'custom_endpoint' ] );
@@ -13,6 +19,8 @@
 
         /**
          * Register WP REST custom endpoints
+         * 
+         * @return boolean Returns 'true' if the function was succefully completed
          */
         public function custom_endpoint()
         {
@@ -59,14 +67,19 @@
                         ],
                     ]
             ]);
+
+            // return that the function successfully completed
+            return true;
         }
 
         /**
          * Implementation of WP REST endpoint for getting map markers
+         * 
+         * @param object $data List of search parameters 
+         * @return string JSON with the result
          */ 
-        public function get_map_markers( $data )
+        public function get_map_markers( object $data )
         {
-
             $name = $data['name'];
 
             $tags = $data['tags'];
@@ -107,7 +120,7 @@
             {
                 $markerItem = [];
 
-                $markerItem['longtitude'] = get_field( 'agfm_map_marker_longtitude', $marker->ID );
+                $markerItem['longitude'] = get_field( 'agfm_map_marker_longitude', $marker->ID );
                 $markerItem['latitude'] = get_field( 'agfm_map_marker_latitude', $marker->ID );
                 $markerItem['id'] = $marker->ID;
                 $markerItem['name'] = $marker->post_title;
@@ -127,19 +140,22 @@
                 $markerItems[] = $markerItem;
             }
 
-            // return result
             $response = [
                 'status' => 200,
                 'items'  => $markerItems
             ];
 
-            return new \WP_REST_Response( $response );
+            // return result in JSON
+            return new \WP_REST_Response( $response ); 
         }
 
         /**
          * Implementation of WP REST endpoint for adding map markers
+         * 
+         * @param object $data JSON string of data by parameters to add to the DB
+         * @return string JSON with the result
          */ 
-        public function add_map_markers( $data )
+        public function add_map_markers( object $data )
         {
             $markers_data = json_decode( $data['list'] );
             $cur_user_id = get_current_user_id();
@@ -174,15 +190,16 @@
 
                 // store other marker data into the database
                 update_field( 'agfm_map_marker_latitude', $marker_data[0]->marker->latitude, $new_marker_id );
-                update_field( 'agfm_map_marker_longtitude', $marker_data[0]->marker->longtitude, $new_marker_id );
+                update_field( 'agfm_map_marker_longitude', $marker_data[0]->marker->longitude, $new_marker_id );
             }
 
-            // return the response
+            // form the response
             $response = [
                 'status'  => 200,
                 'message' => 'Markers added'
             ];
 
+            // return result in JSON
             return new \WP_REST_Response( $response );
         }
     }
