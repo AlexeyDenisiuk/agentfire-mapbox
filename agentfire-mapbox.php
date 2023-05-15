@@ -3,7 +3,7 @@
 	* Plugin Name: agentfire-mapbox
 	* Plugin URI: https://agentfire.com/
 	* Description: AgentFire MapBox GL.
-	* Version: 1.0.3
+	* Version: 1.0.4
 	* Author: Alexey Denisiuk
 	**/
 
