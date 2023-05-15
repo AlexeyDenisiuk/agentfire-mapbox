@@ -10,10 +10,12 @@
     namespace AGFM;
 
     // define constants
-    define( 'AGFM_URL_PLUGINS_FOLDER', '/wp-content/plugins/' );
-    define( 'AGFM_URL_PLUGIN_FOLDER', '/wp-content/plugins/agentfire-mapbox/' );
-    define( 'AGFM_ABS_PLUGIN_FOLDER', __DIR__ . '/' );
-    define( 'AGFM_TEXTDOMAIN', 'agfm_text_namespace' );
+    define( 'AGFM_URL_PLUGINS_FOLDER',   '/wp-content/plugins/' );
+    define( 'AGFM_URL_PLUGIN_FOLDER',    '/wp-content/plugins/agentfire-mapbox/' );
+    define( 'AGFM_URL_TEMPLATES_FOLDER', '/wp-content/plugins/agentfire-mapbox/templates/' );
+    define( 'AGFM_ABS_PLUGIN_FOLDER',    __DIR__ . '/' );
+    define( 'AGFM_ABS_TEMPLATES_FOLDER', __DIR__ . '/templates/' );
+    define( 'AGFM_TEXTDOMAIN',           'agfm_text_namespace' );
 
     // include autoload
     require_once __DIR__ . '/vendor/autoload.php';
@@ -80,26 +82,24 @@
         // run initialization
 		init_agentfire_map();
 
+        // get template handlers
+        $loader = new \Twig\Loader\FilesystemLoader( AGFM_ABS_TEMPLATES_FOLDER );
+        $twig = new \Twig\Environment( $loader, [] );
+
         // get data for the template
-        $tmpl = [];
+        $tmpl_vars = [];
         // get map marker tags/terms
-        $tmpl['map_marker_tags'] = get_terms(
+        $tmpl_vars['map_marker_tags'] = get_terms(
             [
             'taxonomy' => 'agfm_map_marker_tag',
             'hide_empty' => false,
             ]
         );
         // get current user Id
-        $tmpl['current_user_id'] = get_current_user_id();
+        $tmpl_vars['current_user_id'] = get_current_user_id();
 
-		// get main map tempkate
-		ob_start();
-		include AGFM_ABS_PLUGIN_FOLDER . 'templates/map.php';
-		$tmpl_map = ob_get_contents();
-		ob_end_clean();
-
-		// return template
-		return $tmpl_map;
+        // return template
+        return $twig->render( 'map.html', $tmpl_vars );
 	}
 
     /**
