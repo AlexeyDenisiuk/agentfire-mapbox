@@ -71,10 +71,28 @@
 									 	.setLngLat([e.lngLat.lng, e.lngLat.lat])
 									 	.addTo(map);
 
+								 	// clear all values in the fields in the popup window
 									jQuery( '#popup_window_add_map_marker input[type=text]' ).val( '' ).removeClass( 'is-invalid is-valid ');
-									jQuery( '#popup_window_add_map_marker select ').val( '' ).removeClass( 'is-invalid is-valid' );
+									jQuery( '#popup_window_add_map_marker select' ).val( '' ).removeClass( 'is-invalid is-valid' );
 									jQuery( '#popup_window_add_map_marker select ').val( null ).trigger( 'change' );
+
+									// show popup window
 								 	jQuery( '#popup_window_add_map_marker ').modal( 'show' );
+
+								 	// @BUG: this code is used for a bug related to the Select2 element in the
+								 	//       popup window. For some reason if remove this then its placeholder dissapears
+								 	//       when no options are selected
+									setTimeout(
+										function() {
+											jQuery( '#popup_window_add_map_marker select' ).select2({
+												placeholder: jQuery( '#popup_window_add_map_marker select' ).attr( 'placeholder' ),
+												allowClear: true,
+												dropdownParent: jQuery( '#popup_window_add_map_marker select' ).parent()
+											});
+										},
+										200
+									);
+				
 								}
 								isClickedOnMarker = false; 
 							}, 

@@ -8,7 +8,7 @@
 	<div class="row mt-3">
 	  	<div id="filters_cont" class="col-md-3">
 			<div class="input-group">
-				<input type="text" id="filters_map_marker_name" class="form-control" placeholder="<?=Helpers::__( 'Search' )?>">
+				<input type="text" id="filters_map_marker_name" class="form-control" placeholder="<?=Helpers::__( 'Search' )?>" autocomplete="off">
 				<div class="input-group-append">
 					<button id="filters_map_marker_search_btn" class="btn btn-secondary btn-search">
 						<i class="fas fa-search" ></i>
@@ -51,7 +51,7 @@
 		    		<div class="col-md-9">
 						<form>
 							<div class="input-group">
-								<input id="new_marker_name" type="text" class="form-control" placeholder="Name" required>
+								<input id="new_marker_name" type="text" class="form-control" placeholder="Name" required autocomplete="off">
 						        <div class="invalid-feedback"><?=Helpers::__( 'Choose a name please' )?></div>
 							</div>
 							<div class="row mt-3 mb-3">
